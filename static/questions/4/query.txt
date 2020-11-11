@@ -1,0 +1,15 @@
+SELECT  A.ArtistId, A.Name​
+FROM	Artist A, Album AL1, Album AL2,
+        Track T1, Track T2, Genre G1, Genre G2,​
+        PlaylistTrack PT1, PlaylistTrack PT2​
+WHERE	A.ArtistId = AL1.ArtistId​
+AND	    A.ArtistId = AL2.ArtistId​
+AND     AL1.AlbumId = T1.AlbumId​
+AND     AL2.AlbumId = T2.AlbumId​
+AND     T1.GenreId = G1.GenreId
+AND     T2.GenreId = G2.GenreId​
+AND	    PT1.PlaylistId = PT2.PlaylistId​
+AND	    PT1.TrackId = T1.TrackId​
+AND	    PT2.TrackId = T2.TrackId​
+AND     G1.Name = 'Rock'​
+AND     G2.Name = 'Pop';​

@@ -1,0 +1,1 @@
+Find artists that have at least two albums such that one of their albums does not have any track in the 'Rock' genre and another of their albums only has tracks shorter than 270000 milliseconds.

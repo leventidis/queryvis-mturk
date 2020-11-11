@@ -1,0 +1,6 @@
+SELECT 	C.CustomerId, C.FirstName, C.LastName​
+FROM	Customer C, Invoice I1, Invoice I2​
+WHERE	C.State = 'Michigan'​
+AND		C.CustomerId = I1.CustomerId​
+AND 	C.CustomerId = I2.CustomerId​
+AND 	I1.BillingState <> I2.BillingState;​

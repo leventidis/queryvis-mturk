@@ -1,0 +1,1 @@
+Find employees who report to an employee in a different country and the former employee supports at least one customer that has bought a 'Rock' track.

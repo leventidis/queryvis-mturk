@@ -1,0 +1,8 @@
+SELECT		I.CustomerId, SUM(IL.Quantity)​
+FROM 		Artist A, Album AL, Track T, InvoiceLine IL, Invoice I​
+WHERE  		A.ArtistId = AL.ArtistId​
+AND			AL.AlbumId = T.AlbumId ​
+AND			T.TrackId =IL.TrackId​
+AND			IL.InvoiceId = I.InvocieId​
+AND			A.Name = 'Carlos'​
+GROUP BY	I.CustomerId;​

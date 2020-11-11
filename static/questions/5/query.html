@@ -1,0 +1,8 @@
+<pre style="margin: 0; line-height: 125%; font-size: 16px;">
+<span style="color: blue">SELECT</span> 	C.CustomerId, C.FirstName, C.LastName​
+<span style="color: blue">FROM</span>	Customer C, Invoice I1, Invoice I2​
+<span style="color: blue">WHERE</span>	C.State = 'Michigan'​
+<span style="color: blue">AND</span>	C.CustomerId = I1.CustomerId​
+<span style="color: blue">AND</span> 	C.CustomerId = I2.CustomerId​
+<span style="color: blue">AND</span> 	I1.BillingState <> I2.BillingState;​
+</pre>

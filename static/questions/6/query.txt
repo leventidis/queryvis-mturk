@@ -1,0 +1,16 @@
+SELECT 	P.PlaylistId, P.Name​
+FROM	Playlist P, PlaylistTrack PT1, ​
+		PlaylistTrack PT2, PlaylistTrack PT3,​
+		Track T1, Track T2, Track T3​
+WHERE	P.PlaylistId = PT1.PlaylistId​
+AND		P.PlaylistId = PT2.PlaylistId​
+AND 	P.PlaylistId = PT3.PlaylistId​
+AND 	PT1.TrackId <> PT2.TrackId​
+AND 	PT2.TrackId <> PT3.TrackId​
+AND 	PT1.TrackId <> PT3.TrackId​
+AND 	PT1.TrackId = T1.TrackId​
+AND 	PT2.TrackId = T2.TrackID​
+AND 	PT3.TrackId = T3.TrackID​
+AND 	T1.AlbumId = T2.AlbumId​
+AND 	T2.AlbumId = T3.AlbumId​
+AND 	T2.Composer = T3.Composer;​

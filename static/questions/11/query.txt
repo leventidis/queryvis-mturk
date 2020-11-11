@@ -1,0 +1,16 @@
+SELECT 	A.ArtistId, A.Name​
+FROM	Artist A, Album AL1, Album AL2​
+WHERE	A.ArtistId = AL1.ArtistId​
+AND		A.ArtistId = AL2.ArtistId ​
+AND		AL1.AlbumId <> AL2.AlbumId​
+AND 	NOT EXISTS​
+		(SELECT 	* ​
+		FROM 		Track T1, Genre G1​
+		WHERE		AL1.AlbumId = T1.AlbumId​
+		AND			T1.GenreId = G1.GenreId​
+		AND			G1.Name = 'Rock')​
+AND NOT EXISTS​
+		(SELECT 	* ​
+		FROM 		Track T2​
+		WHERE		AL2.AlbumId = T2.AlbumId​
+		AND			T2.Milliseconds < 270000);​

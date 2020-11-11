@@ -1,0 +1,1 @@
+For each customer who bought a track from an artist named 'Carlos', find the total number of tracks that customer has purchased.

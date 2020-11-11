@@ -1,0 +1,8 @@
+SELECT 	A.ArtistId, A.Name​
+FROM	Artist A​
+WHERE	NOT EXISTS​
+		(SELECT * ​
+		FROM Album AL, Track T​
+		WHERE	A.ArtistId = AL.ArtistId​
+		AND	AL.AlbumId = T.AlbumId​
+		AND	T.Composer = A.Name);​

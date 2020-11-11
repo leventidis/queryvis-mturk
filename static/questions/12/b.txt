@@ -1,0 +1,1 @@
+Find artists that have an album such that at least one of its tracks that are in the 'Jazz' genre are in all playlists.

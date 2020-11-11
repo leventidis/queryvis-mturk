@@ -1,0 +1,11 @@
+SELECT 		G.Name, MAX(T.Milliseconds)​
+FROM 		Playlist P, PlaylistTrack PT, Track T, Genre G, InvoiceLine IL, Invoice I, Customer C​
+WHERE 		T.GenreId = G.GenreId​
+AND 		T.TrackId = IL.TrackId​
+AND 		IL.InvoiceId = I.InvoiceId​
+AND 		I.CustomerId = C.CustomerId​
+AND 		PT.TrackId = T.TrackId​
+AND 		P.PlaylistId = PT.PlaylistId​
+AND 		P.Name = 'workout'
+AND 		C.Country = 'France'​
+GROUP BY 	G.Name;​

@@ -1,0 +1,18 @@
+<pre style="margin: 0; line-height: 125%; font-size: 16px;">
+<span style="color: blue">SELECT</span> 	A.ArtistId, A.Name​
+<span style="color: blue">FROM</span>	Artist A, Album AL1, Album AL2​
+<span style="color: blue">WHERE</span>	A.ArtistId = AL1.ArtistId​
+<span style="color: blue">AND</span>	A.ArtistId = AL2.ArtistId ​
+<span style="color: blue">AND</span>	AL1.AlbumId <> AL2.AlbumId​
+<span style="color: blue">AND</span> 	<span style="color: blue">NOT EXISTS​</span>
+	(<span style="color: blue">SELECT</span> * ​
+	<span style="color: blue">FROM</span> 	Track T1, Genre G1​
+	<span style="color: blue">WHERE</span>	AL1.AlbumId = T1.AlbumId​
+	<span style="color: blue">AND</span>	T1.GenreId = G1.GenreId​
+	<span style="color: blue">AND</span>	G1.Name = 'Rock')​
+<span style="color: blue">AND</span> 	<span style="color: blue">NOT EXISTS​</span>
+	(<span style="color: blue">SELECT</span> * ​
+	<span style="color: blue">FROM</span> 	Track T2​
+	<span style="color: blue">WHERE</span>	AL2.AlbumId = T2.AlbumId​
+	<span style="color: blue">AND</span>	T2.Milliseconds < 270000);​
+</pre>

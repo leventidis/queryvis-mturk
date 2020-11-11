@@ -1,0 +1,1 @@
+Find artists who have an album that has a track that is in a playlist, is available as 'ACC audio file', and was purchased by a customer who also bought a 'Rock' track from the same artist.

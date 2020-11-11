@@ -1,0 +1,17 @@
+<pre style="margin: 0; line-height: 125%; font-size: 16px;">
+<span style="color: blue">SELECT</span> A.Name​
+<span style="color: blue">FROM</span>    Artist A, Album AL, Track T,​
+        PlaylistTrack PT, Playlist P, MediaType MT, Genre G,​
+        InvoiceLine IL, Invoice I, Customer C​
+<span style="color: blue">WHERE</span>   AL.ArtistId = A.ArtistId​
+<span style="color: blue">AND</span>     AL.AlbumId = T.AlbumId​
+<span style="color: blue">AND</span>     T.TrackId = PT.TrackId​
+<span style="color: blue">AND</span>     P.PlaylistId = PT.PlaylistId​
+<span style="color: blue">AND</span>     T.MediaTypeId = MT.MediaTypeId​
+<span style="color: blue">AND</span>     G.GenreId = T.GenreId​
+<span style="color: blue">AND</span>     T.TrackId = IL.TrackId​
+<span style="color: blue">AND</span>     I.InvoiceId = IL.InvoiceId​
+<span style="color: blue">AND</span>     I.CustomerId = C.CustomerId​
+<span style="color: blue">AND</span>     MT.Name = 'AAC audio file’​
+<span style="color: blue">AND</span>     G.Name = 'Rock’;​
+</pre>

@@ -1,0 +1,13 @@
+<pre style="margin: 0; line-height: 125%; font-size: 16px;">
+<span style="color: blue">SELECT</span>  E1.EmployeeId​
+<span style="color: blue">FROM</span>    Employee E1, Employee E2, Customer C,
+        Invoice I, InvoiceLine IL, Track T, Genre G​
+<span style="color: blue">WHERE</span>   E1.ReportsTo = E2.EmployeeId​
+<span style="color: blue">AND</span>     E1.Country <> E2.Country​
+<span style="color: blue">AND</span>     E2.EmployeeId = C.SupportRepId​
+<span style="color: blue">AND</span>     I.CustomerId = C.CustomerId​
+<span style="color: blue">AND</span>     I.InvoiceId = IL.InvoiceId​
+<span style="color: blue">AND</span>     T.TrackId = IL.TrackId​
+<span style="color: blue">AND</span>     T.GenreId = G.GenreId​
+<span style="color: blue">AND</span>     G.Name = 'Rock’;​
+</pre>

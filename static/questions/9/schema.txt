@@ -1,0 +1,6 @@
+instructors(InstructorID, FirstName, MiddleName, LastName, Name, Affiliations, Reputation)
+students(StudentID, FirstName, LastName, Email, Affiliations, ClassYear, Reputation)
+courses(course_id, course_hash)
+bookcache (BookID, ISBN, Title, Author, Edition, Publisher)
+coursebooks(courseid, BookID, BookType, InstructorID, StudentID)
+catalog_entries(catalog_entry_id, DepartmentCode, DepartmentNumber, Title, Description, course_id)

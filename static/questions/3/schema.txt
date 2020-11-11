@@ -1,0 +1,3 @@
+students(StudentID, FirstName, LastName, Email, Affiliations, ClassYear, Reputation)
+studentstudies(StudentID, StudyProgramID)
+studyprograms(StudyProgramID, Name, Classification, DepartmentID)

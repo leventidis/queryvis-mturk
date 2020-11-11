@@ -1,0 +1,5 @@
+SELECT	A.Name​
+FROM    Artist A, Album AL, Track T​
+WHERE	AL.AlbumId = T.AlbumId ​
+AND 	A.ArtistId = AL.ArtistId​
+AND	    A.Name = T.Composer;​

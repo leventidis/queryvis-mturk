@@ -1,0 +1,301 @@
+<QuestionForm xmlns='http://mechanicalturk.amazonaws.com/AWSMechanicalTurkDataSchemas/2005-10-01/QuestionForm.xsd'>  
+  <Overview>
+    <Title>SQL Qualification Test</Title>
+    <Text>
+    You have 15 minutes to complete the qualification test. You need to answer at least 4 out of 6 questions correctly in order to qualify to take the actual HIT.
+    For each question, choose the accurate option for what the SQL query does. We also provide a visualization of the query.
+
+    All questions are on the following schema:
+    </Text>
+
+    <FormattedContent>
+    <![CDATA[
+    <img src="https://queryvis-qualification-test.s3.amazonaws.com/chinook_schema.png" alt="Chinnok Schema" width="80%"></img> <br></br>
+    <br></br>
+    <b>We also provide a visualization of each query. However, it is entirely optional and you do not need to understand any of the visualziations. This qualification is only testing your SQL knowledge.</b>
+    ]]>
+    </FormattedContent>
+  </Overview>
+  <Question>
+      <QuestionIdentifier>Q1</QuestionIdentifier>
+      <DisplayName>Q1</DisplayName>
+      <IsRequired>true</IsRequired>
+      <QuestionContent>
+            <FormattedContent>
+            <![CDATA[
+            <img src="https://queryvis-qualification-test.s3.amazonaws.com/qualification_sql_1.png" alt="Qualification Q1 SQL" width="40%"></img>
+            <img src="https://queryvis-qualification-test.s3.amazonaws.com/qualification_qv_1.png" alt="Qualification Q1 visualization" width="40%"></img>
+            ]]>
+            </FormattedContent>
+        <Text> 
+        Question 1: Choose the best interpretation of the above query.
+        </Text>
+      </QuestionContent>
+      <AnswerSpecification>
+        <SelectionAnswer>
+          <StyleSuggestion>radiobutton</StyleSuggestion>
+          <Selections>
+            <Selection>
+              <SelectionIdentifier>a</SelectionIdentifier>
+              <Text>
+              Find playlists that have all tracks from all albums by artists with the name 'AC/DC'
+              </Text>
+            </Selection>
+            <Selection>
+              <SelectionIdentifier>b</SelectionIdentifier>
+              <Text>
+              Find playlists that have all tracks from an album by an artist with the name 'AC/DC'.
+              </Text>
+            </Selection>
+            <Selection>
+              <SelectionIdentifier>c</SelectionIdentifier>
+              <Text>
+              Find playlists that only have tracks from albums by artists with the name 'AC/DC'.
+              </Text>
+            </Selection>
+            <Selection>
+              <SelectionIdentifier>d</SelectionIdentifier>
+              <Text>
+              Find playlists that have at least one track from an album by an artist with the name 'AC/DC'.
+              </Text>
+            </Selection>
+          </Selections>
+        </SelectionAnswer>
+      </AnswerSpecification>
+  </Question>
+  <Question>
+      <QuestionIdentifier>Q2</QuestionIdentifier>
+      <DisplayName>Q2</DisplayName>
+      <IsRequired>true</IsRequired>
+      <QuestionContent>
+            <FormattedContent>
+            <![CDATA[
+            <img src="https://queryvis-qualification-test.s3.amazonaws.com/qualification_sql_2.png" alt="Qualification Q1 SQL" width="40%"></img>
+            <img src="https://queryvis-qualification-test.s3.amazonaws.com/qualification_qv_2.png" alt="Qualification Q1 visualization" width="40%"></img>
+            ]]>
+            </FormattedContent>
+        <Text>
+        Question 2: Choose the best interpretation of the above query.
+        </Text>
+      </QuestionContent>
+      <AnswerSpecification>
+        <SelectionAnswer>
+          <StyleSuggestion>radiobutton</StyleSuggestion>
+          <Selections>
+            <Selection>
+              <SelectionIdentifier>a</SelectionIdentifier>
+              <Text>
+              Find customers who have at least two invoices and for each invoice there are at least two tracks of different genres.​
+              </Text>
+            </Selection>
+            <Selection>
+              <SelectionIdentifier>b</SelectionIdentifier>
+              <Text>
+              Find customers who have at least two invoices with tracks of different genres.
+              </Text>
+            </Selection>
+            <Selection>
+              <SelectionIdentifier>c</SelectionIdentifier>
+              <Text>
+              Find customers who have an invoice with at least two tracks of different genres.
+              </Text>
+            </Selection>
+            <Selection>
+              <SelectionIdentifier>d</SelectionIdentifier>
+              <Text>
+              Find customers who have an invoice with only two tracks that are of different genres.
+              </Text>
+            </Selection>
+          </Selections>
+        </SelectionAnswer>
+      </AnswerSpecification>
+  </Question>
+  <Question>
+      <QuestionIdentifier>Q3</QuestionIdentifier>
+      <DisplayName>Q3</DisplayName>
+      <IsRequired>true</IsRequired>
+      <QuestionContent>
+        <FormattedContent>
+        <![CDATA[
+        <img src="https://queryvis-qualification-test.s3.amazonaws.com/qualification_sql_3.png" alt="Qualification Q1 SQL" width="40%"></img>
+        <img src="https://queryvis-qualification-test.s3.amazonaws.com/qualification_qv_3.png" alt="Qualification Q1 visualization" width="40%"></img>
+        ]]>
+        </FormattedContent>
+        <Text>
+        Question 3: Choose the best interpretation of the above query.
+        </Text>
+      </QuestionContent>
+      <AnswerSpecification>
+        <SelectionAnswer>
+          <StyleSuggestion>radiobutton</StyleSuggestion>
+          <Selections>
+            <Selection>
+              <SelectionIdentifier>a</SelectionIdentifier>
+              <Text>
+              For each playlist, find the number of tracks that are either not of genre 'Pop' or available as 'MPEG audio file'.
+              </Text>
+            </Selection>
+            <Selection>
+              <SelectionIdentifier>b</SelectionIdentifier>
+              <Text>
+              For each playlist, find the number of tracks that are not of genre 'Pop' and are available as 'MPEG audio file'.​
+              </Text>
+            </Selection>
+            <Selection>
+              <SelectionIdentifier>c</SelectionIdentifier>
+              <Text>
+              For each playlist that does not contain any tracks of genre 'Pop', find the number of tracks that are available as 'MPEG audio file'.​
+              </Text>
+            </Selection>
+            <Selection>
+              <SelectionIdentifier>d</SelectionIdentifier>
+              <Text>
+              For each playlist that contains one or more tracks that are available as 'MPEG audio file', find the number of tracks of genre 'Pop'.​
+              </Text>
+            </Selection>
+          </Selections>
+        </SelectionAnswer>
+      </AnswerSpecification>
+  </Question>
+  <Question>
+    <QuestionIdentifier>Q4</QuestionIdentifier>
+    <DisplayName>Q4</DisplayName>
+    <IsRequired>true</IsRequired>
+    <QuestionContent>
+        <FormattedContent>
+        <![CDATA[
+        <img src="https://queryvis-qualification-test.s3.amazonaws.com/qualification_sql_4.png" alt="Qualification Q1 SQL" width="40%"></img>
+        <img src="https://queryvis-qualification-test.s3.amazonaws.com/qualification_qv_4.png" alt="Qualification Q1 visualization" width="40%"></img>
+        ]]>
+        </FormattedContent>
+    <Text> 
+    Question 4: Choose the best interpretation of the above query.
+    </Text>
+    </QuestionContent>
+    <AnswerSpecification>
+    <SelectionAnswer>
+        <StyleSuggestion>radiobutton</StyleSuggestion>
+        <Selections>
+        <Selection>
+            <SelectionIdentifier>a</SelectionIdentifier>
+            <Text>
+            Find artists where all tracks in all their albums are available in 'ACC audio file' type.
+            </Text>
+        </Selection>
+        <Selection>
+            <SelectionIdentifier>b</SelectionIdentifier>
+            <Text>
+            Find artists where all their albums have a track that is available in 'ACC audio file' type.
+            </Text>
+        </Selection>
+        <Selection>
+            <SelectionIdentifier>c</SelectionIdentifier>
+            <Text>
+            Find artists where none of their albums have a track that is available in 'ACC audio file' type.
+            </Text>
+        </Selection>
+        <Selection>
+            <SelectionIdentifier>d</SelectionIdentifier>
+            <Text>
+            Find artists where none of their albums have all their tracks available in 'ACC audio file' type.
+            </Text>
+        </Selection>
+        </Selections>
+    </SelectionAnswer>
+    </AnswerSpecification>
+  </Question>
+  <Question>
+      <QuestionIdentifier>Q5</QuestionIdentifier>
+      <DisplayName>Q5</DisplayName>
+      <IsRequired>true</IsRequired>
+      <QuestionContent>
+        <FormattedContent>
+        <![CDATA[
+        <img src="https://queryvis-qualification-test.s3.amazonaws.com/qualification_sql_5.png" alt="Qualification Q1 SQL" width="40%"></img>
+        <img src="https://queryvis-qualification-test.s3.amazonaws.com/qualification_qv_5.png" alt="Qualification Q1 visualization" width="40%"></img>
+        ]]>
+        </FormattedContent>
+        <Text>
+        Question 5: Choose the best interpretation of the above query.
+        </Text>
+      </QuestionContent>
+      <AnswerSpecification>
+        <SelectionAnswer>
+          <StyleSuggestion>radiobutton</StyleSuggestion>
+          <Selections>
+            <Selection>
+              <SelectionIdentifier>a</SelectionIdentifier>
+              <Text>
+              Find customers who were not the only ones in their city to buy every track from an album by an artist with the name 'AC/DC'.​
+              </Text>
+            </Selection>
+            <Selection>
+              <SelectionIdentifier>b</SelectionIdentifier>
+              <Text>
+              Find customers who were the only ones in their city to buy every track from an album by an artist with the name 'AC/DC'.
+              </Text>
+            </Selection>
+            <Selection>
+              <SelectionIdentifier>c</SelectionIdentifier>
+              <Text>
+              Find customers who were not the only ones in their city to buy a track from an album by an artist with the name 'AC/DC'.
+              </Text>
+            </Selection>
+            <Selection>
+              <SelectionIdentifier>d</SelectionIdentifier>
+              <Text>
+              Find customers who were the only ones in their city to buy a track from an album by an artist with the name 'AC/DC'.
+              </Text>
+            </Selection>
+          </Selections>
+        </SelectionAnswer>
+      </AnswerSpecification>
+  </Question>
+  <Question>
+      <QuestionIdentifier>Q6</QuestionIdentifier>
+      <DisplayName>Q6</DisplayName>
+      <IsRequired>true</IsRequired>
+      <QuestionContent>
+        <FormattedContent>
+        <![CDATA[
+        <img src="https://queryvis-qualification-test.s3.amazonaws.com/qualification_sql_6.png" alt="Qualification Q1 SQL" width="40%"></img>
+        <img src="https://queryvis-qualification-test.s3.amazonaws.com/qualification_qv_6.png" alt="Qualification Q1 visualization" width="40%"></img>
+        ]]>
+        </FormattedContent>
+        <Text>
+        Question 6: Choose the best interpretation of the above query.
+        </Text>
+      </QuestionContent>
+      <AnswerSpecification>
+        <SelectionAnswer>
+          <StyleSuggestion>radiobutton</StyleSuggestion>
+          <Selections>
+            <Selection>
+              <SelectionIdentifier>a</SelectionIdentifier>
+              <Text>
+              For each employee that reports to an employee in another country, find the number of customers the former employee services in a different country than theirs and the average invoice total of those customers.
+              </Text>
+            </Selection>
+            <Selection>
+              <SelectionIdentifier>b</SelectionIdentifier>
+              <Text>
+              For each employee that reports to an employee in another country, find the number of customers the former employee services in their country and the average invoice total of those customers
+              </Text>
+            </Selection>
+            <Selection>
+              <SelectionIdentifier>c</SelectionIdentifier>
+              <Text>
+              For each employee that reports to an employee in another country, find the number of customers the latter employee services in a different country than theirs and the average invoice total of those customers.
+              </Text>
+            </Selection>
+            <Selection>
+              <SelectionIdentifier>d</SelectionIdentifier>
+              <Text>
+              For each employee that reports to an employee in another country, find the number of customers the latter employee services in their country and the average invoice total of those customers.​
+              </Text>
+            </Selection>
+          </Selections>
+        </SelectionAnswer>
+      </AnswerSpecification>
+  </Question>
+</QuestionForm>

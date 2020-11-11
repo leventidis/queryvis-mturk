@@ -1,0 +1,1 @@
+For each album that has a 'Classical' track, find the maximum duration of any 'Classical' track that is listed in at least one playlist.

@@ -1,0 +1,348 @@
+<!doctype html>
+
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+
+  <title>Visualization of SQL Queries</title>
+  <meta name="description" content="QueryViz User Study">
+  <meta name="author" content="Aristotelis Leventidis">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+  <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/themes/smoothness/jquery-ui.css">
+  <link rel="stylesheet" href="https://s3.amazonaws.com/mturk-public/bs30/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+
+
+  <!--[if lt IE 9]>
+  <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+  <![endif]-->
+  <script>
+    history.pushState(null, document.title, location.href);
+    window.addEventListener('popstate', function (event)
+    {
+      history.pushState(null, document.title, location.href);
+    });
+  </script>
+</head>
+
+<!-- Scripts to include  -->
+<script src="js/globals.js"></script>
+<script src="js/question.js"></script>
+<script src="js/time.js"></script>
+
+<!-- Set the mode  -->
+<script>
+  window.onload = function() {
+    // Set the current_mode based on what the starting mode was
+    // console.log("The sequence_num is:", "{{sequence_num}}");
+    // sequence_num = parseInt("{{sequence_num}}", 10);
+    sequence_num = localStorage.getItem('sequence_num');
+    console.log("The sequence_num is:", sequence_num);
+    current_mode = initialize_current_mode();
+    console.log("The starting mode is:", current_mode);
+    // Modify accordingly what elements should be hidden and what should be shown
+    apply_mode();
+
+    // Start the timer
+    start_timer();
+
+    // Set Progress bar
+    apply_progress_changes();
+
+    CountDown.Start(50*60*1000);
+  };
+
+</script>
+
+
+<body>
+  <div id="wrapper">
+    <div id="content">
+
+      <div class="question_div">
+        <div class="progress">
+          <div class="progress-bar" role="progressbar" aria-valuenow="70"
+          aria-valuemin="0" aria-valuemax="100" style="width:70%;font-size:13px;text-align: center">
+            <strong>Question 1 / 12</strong>
+          </div>
+        </div>
+        <div id=countdown_div>Time remaining: <span id="countdown">00:00</span> minutes</div><br>
+        <p>
+          <!-- <iframe class="sql_schema_iframe" src="{{url_for('static', filename='questions/1/schema.html')}}" frameborder=0 overflow-x="hidden" scrolling="no"></iframe> -->
+        </p>
+        <div class="question_div_mid">
+          <div class="sql_query_div">
+            <p>
+                <iframe class="sql_query_iframe" id="sql_query_iframe" src="{{url_for('static', filename='questions/1/query.html')}}" frameborder=0 overflow-x="hidden" scrolling="no"></iframe>
+            </p>
+          </div>
+          <div class="queryviz_img">
+          </div>
+        </div>
+      </div>
+
+      <div class="questions_form_div">
+        <form method="POST" id="questions_form">
+          <label for="QA">
+            <input type="radio" id="QA" value="a" name=choice />
+            <span class="wrappable" id="Qa_label">{{questions.Q1.a}}</span>
+          </label><br>
+          <label for="QB">
+            <input type="radio" id="QB" value="b" name=choice/>
+            <span class="wrappable" id="Qb_label">{{questions.Q1.b}}</span>
+          </label><br>
+          <label for="QC">
+            <input type="radio" id="QC" value="c" name=choice/>
+            <span class="wrappable" id="Qc_label">{{questions.Q1.c}}</span>
+          </label><br>
+          <label for="QD">
+            <input type="radio" id="QD" value="d" name=choice/>
+            <span class="wrappable" id="Qd_label">{{questions.Q1.d}}</span>
+          </label><br>
+          <input type="button" value="Submit" id=submit_answer></input>
+        </form>
+        <br>
+        <p hidden style="color: red;" id='radio_selection_warning'>You must choose one of the 4 options to proceed!</p>
+      </div>
+    </div>
+
+    <div id=pdf_links_banner>
+      <a target="_blank" style="margin-right:10px;" href="{{url_for('static', filename='documents/tutorial.pdf')}}">Tutorial (PDF)</a>
+      <!-- <a target="_blank" href="{{url_for('static', filename='documents/vizsummary.pdf')}}">Visualization Summary (PDF)</a> -->
+    </div>
+  </div>
+
+
+</body>
+
+<script>
+
+  // Function is called either when user clicks to submit an answer or when the click for the next question
+  $('#submit_answer').click(function(){
+    if (checking_answer) {
+      // Ensure that a radio button is selected
+      if (!radio_is_checked()) {
+        console.log('No radio button was selected')
+        return;
+      }
+
+      console.log("Submitted an answer for question", question_num);
+
+      // Once user submits an answer display both the SQL and QV graph regardless of the current mode
+      $('.sql_query_div').show();
+      display_queryvis_img();
+
+      // Check the user's answer and record the time in the database
+      check_answer();
+      checking_answer = false;
+
+      // Pause the timer
+      CountDown.Pause();
+    }
+    else {
+      // Check if we are on the last question, and if so redirect the user to the demographics section
+      if (question_num >= total_num_questions) {
+        console.log("Test completed, user has submitted the last question.");
+        window.location.href = "/demographics";
+        return;
+      }
+
+      // Increment the question number
+      question_num++;
+      console.log("New question number is", question_num);
+
+      // Update mode accordingly based on the sequence_num assigned to this worker
+      update_current_mode();
+      apply_mode();
+      console.log("The new mode is:", current_mode);
+
+      // Define default sources for html and images
+      schema_src = "{{url_for('static', filename='questions/1/schema.html')}}";
+      sql_src = "{{url_for('static', filename='questions/1/query.html')}}";
+
+      // Load the next question
+      load_next_question(schema_src, sql_src);
+
+      //TODO: HOW to read the questions properly and concisely? 
+      // Update the question choices (there must be a better way to get the question_choices but concatenation doesn't work again ... :( )
+      var questions_form = $('#questions_form');
+      var question_choices = ["{{questions.Q1.a}}", "{{questions.Q1.b}}", "{{questions.Q1.c}}", "{{questions.Q1.d}}", "{{questions.Q2.a}}", "{{questions.Q2.b}}", "{{questions.Q2.c}}", "{{questions.Q2.d}}", "{{questions.Q3.a}}", "{{questions.Q3.b}}", "{{questions.Q3.c}}", "{{questions.Q3.d}}", "{{questions.Q4.a}}", "{{questions.Q4.b}}", "{{questions.Q4.c}}", "{{questions.Q4.d}}", "{{questions.Q5.a}}", "{{questions.Q5.b}}", "{{questions.Q5.c}}", "{{questions.Q5.d}}", "{{questions.Q6.a}}", "{{questions.Q6.b}}", "{{questions.Q6.c}}", "{{questions.Q6.d}}", "{{questions.Q7.a}}", "{{questions.Q7.b}}", "{{questions.Q7.c}}", "{{questions.Q7.d}}", "{{questions.Q8.a}}", "{{questions.Q8.b}}", "{{questions.Q8.c}}", "{{questions.Q8.d}}", "{{questions.Q9.a}}", "{{questions.Q9.b}}", "{{questions.Q9.c}}", "{{questions.Q9.d}}", "{{questions.Q10.a}}", "{{questions.Q10.b}}", "{{questions.Q10.c}}", "{{questions.Q10.d}}", "{{questions.Q11.a}}", "{{questions.Q11.b}}", "{{questions.Q11.c}}", "{{questions.Q11.d}}", "{{questions.Q12.a}}", "{{questions.Q12.b}}", "{{questions.Q12.c}}", "{{questions.Q12.d}}"];
+      var num_question_choices = 4;
+      var label_ids = ["#Qa_label", "#Qb_label", "#Qc_label", "#Qd_label"];
+      for (i=0; i < label_ids.length; i++) {
+        text_val = question_choices[(question_num - 1) * num_question_choices + i];
+        $(label_ids[i]).html(text_val);
+      }
+
+      // Update progress bar
+      apply_progress_changes();
+
+      $('#questions_form')[0].reset();
+
+      // Start recording the time when the user starts the new question
+      new_question_start_time();
+
+      // Unpause the timer
+      CountDown.Resume();
+
+      // Change the status of check answer
+      checking_answer = true;
+    }
+  });
+
+  // Prints out all the question choices in Jinja2 format
+  function question_choices_arr_creator() {
+    {% raw %}
+    question_choices = [];
+    num_questions = 12;
+    choices = ['a', 'b', 'c', 'd'];
+    for (i=1; i <= num_questions; i++) {
+      for (j=0; j<choices.length; j++) {
+        var val = "{{questions.Q"+i.toString()+"."+choices[j]+"}}";
+        question_choices.push(val);
+      }
+    }
+    {% endraw %}
+    return question_choices;
+  }
+
+  // Set the initial current_mode according to the user sequence_num
+  function initialize_current_mode() {
+    if (sequence_num == 0 || sequence_num == 1) {
+      current_mode = 1;
+    }
+    else if (sequence_num == 2 || sequence_num == 3) {
+      current_mode = 2;
+    }
+    else if (sequence_num == 4 || sequence_num == 5) {
+      current_mode = 3;
+    }
+    return current_mode;
+  }
+
+  // Update the current_mode according to the user sequence_num
+  function update_current_mode() {
+    /*
+    Sequence 1: 1, 2, 3, 1, 2, 3, ...
+    Sequence 2: 1, 3, 2, 1, 3, 2, ...
+    Sequence 3: 2, 1, 3, 2, 1, 3, ...
+    Sequence 4: 2, 3, 1, 2, 3, 1, ...
+    Sequence 5: 3, 1, 2, 3, 1, 2, ...
+    Sequence 6: 3, 2, 1, 3, 2, 1, ...
+    */
+    var seq_1 = [1, 2, 3];
+    var seq_2 = [1, 3, 2];
+    var seq_3 = [2, 1, 3];
+    var seq_4 = [2, 3, 1];
+    var seq_5 = [3, 1, 2];
+    var seq_6 = [3, 2, 1];
+    var seq_list = [seq_1, seq_2, seq_3, seq_4, seq_5, seq_6];
+
+    var idx = seq_list[sequence_num].indexOf(current_mode);
+    if (idx == 2) {
+      current_mode = seq_list[sequence_num][0];
+    }
+    else {
+      current_mode = seq_list[sequence_num][idx + 1];
+    }
+  }
+
+  function apply_mode() {
+    if (current_mode == 1) {
+      $('.sql_query_div').show();
+      $("#queryviz_img").remove();
+    }
+    else if (current_mode == 2) {
+      $('.sql_query_div').hide();
+      display_queryvis_img();
+    }
+    else if (current_mode == 3) {
+      $('.sql_query_div').show();
+      display_queryvis_img();
+    }
+    else {
+      console.log("Unknown mode!");
+    }
+  }
+
+  function apply_progress_changes() {
+    val = question_num / total_num_questions;
+    $('.progress-bar').attr('aria-valuenow', String(val));
+    $('.progress-bar').css('width', String(val*100)+"%");
+    $('.progress-bar').text("Question " + String(question_num) + " / " + String(total_num_questions));
+  }
+
+  function display_queryvis_img() {
+    $("#queryviz_img").remove();
+    queryviz_img_src = "{{url_for('static', filename='img/q1.svg')}}"
+    queryviz_img_src = queryviz_img_src.replace("1", question_num.toString());
+    $('.queryviz_img').prepend('<img src="" id = "queryviz_img" alt = "queryviz_img">');
+    var queryviz_img = $('#queryviz_img');
+    queryviz_img[0].src = queryviz_img_src;
+  }
+
+  // Countdown timer
+  var CountDown = (function ($) {
+    // Length ms 
+    var TimeOut = 10000;
+    // Interval ms
+    var TimeGap = 1000;
+    
+    var CurrentTime = ( new Date() ).getTime();
+    var EndTime = ( new Date() ).getTime() + TimeOut;
+    
+    var GuiTimer = $('#countdown');
+    
+    var Running = true;
+    
+    var UpdateTimer = function() {
+        // Run till timeout
+        if( CurrentTime + TimeGap < EndTime ) {
+            setTimeout( UpdateTimer, TimeGap );
+        }
+        // Countdown if running
+        if( Running ) {
+            CurrentTime += TimeGap;
+            if( CurrentTime >= EndTime ) {
+                GuiTimer.css('color','red');
+            }
+        }
+        // Update Gui
+        var Time = new Date();
+        Time.setTime( EndTime - CurrentTime );
+        var Minutes = Time.getMinutes();
+        var Seconds = Time.getSeconds();
+        
+        GuiTimer.html( 
+            (Minutes < 10 ? '0' : '') + Minutes 
+            + ':' 
+            + (Seconds < 10 ? '0' : '') + Seconds );
+    };
+    
+    var Pause = function() {
+        Running = false;
+    };
+    
+    var Resume = function() {
+        Running = true;
+    };
+    
+    var Start = function( Timeout ) {
+        TimeOut = Timeout;
+        CurrentTime = ( new Date() ).getTime();
+        EndTime = ( new Date() ).getTime() + TimeOut;
+        UpdateTimer();
+    };
+
+    return {
+        Pause: Pause,
+        Resume: Resume,
+        Start: Start
+    };
+  })(jQuery);
+
+  </script>
+
+</html>

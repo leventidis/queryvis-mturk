@@ -1,0 +1,1 @@
+Find artists who have an album with a 'Pop' track and a 'Rock' track and each track is in at least one playlist.

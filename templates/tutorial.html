@@ -1,0 +1,128 @@
+<!doctype html>
+
+<html lang="en">
+	<head>
+        <title>Visualization of SQL Queries</title>
+        <meta name="description" content="QueryViz User Study">
+        <meta name="author" content="Aristotelis Leventidis">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
+        <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+        <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/themes/smoothness/jquery-ui.css">
+        <link rel="stylesheet" href="https://s3.amazonaws.com/mturk-public/bs30/css/bootstrap.min.css">
+    </head>
+    
+    <!-- Scripts to include  -->
+    <script src="js/time.js"></script>
+    <script src="js/globals.js"></script>
+
+    <!-- Set the mode  -->
+    <script>
+        window.onload = function() {
+            console.log("Showing tutorial page 1");
+            start_timer();
+            update_button_text();
+
+            console.log("worker_id:", localStorage.getItem('worker_id'),
+            "assignment_id:", localStorage.getItem('assignment_id'), "hit_id:",
+            localStorage.getItem('hit_id'));
+        };
+    </script>
+
+	<body>
+		<div id="tutorial_div">
+            <div id="tutorial_img_div">
+                <img src="{{url_for('static', filename='documents/tutorial/tutorial-1.png')}}" id = "tutorial_img" alt = "tutorial_img">
+            </div>
+            <div id="tutorial_btn_div">
+                <input type="button" value="Previous page" id=previous_tutorial></input>
+                <input type="button" value="Next page" id=next_tutorial></input>
+            </div>
+        </div>
+    </body>
+    
+    <script>
+        $('#next_tutorial').click(function() {
+            // Record the time spent on a given tutorial page
+            record_tutorial_time();
+
+            // Check if we are at last tutorial page
+            if (tutorial_page_num == total_num_tutorial_pages) {
+                console.log("User completed the tutorial");
+                worker_id = localStorage.getItem('worker_id');
+                data = {worker_id: worker_id};
+                var url = "/assign_sequence_num";
+                $.ajax({
+                    url: url,
+                    type: 'POST',
+                    data: JSON.stringify(data, null, '\t'),
+                    contentType: 'application/json;charset=UTF-8',
+                    success: function(data) {
+                        var sequence_num = parseInt(data);
+                        localStorage.setItem('sequence_num', sequence_num);
+                        console.log("Sequence number set to:", localStorage.getItem('sequence_num'));
+                        window.location.href = "/test";
+                    },
+                    error: function(xhr, testStatus, errorThrown) {
+                        console.log("AJAX failed");
+                    }
+                });
+                return
+            }
+
+            tutorial_page_num += 1;
+            update_tutorial_image(tutorial_page_num);
+            update_button_text();
+            console.log("Showing tutorial page:", tutorial_page_num);
+        });
+
+        $('#previous_tutorial').click(function() {
+            // Record the time spent on a given tutorial page
+            record_tutorial_time();
+
+            tutorial_page_num -= 1;
+            update_tutorial_image(tutorial_page_num);
+            update_button_text();
+            console.log("Showing tutorial page:", tutorial_page_num);
+        });
+
+        $(document).keydown(function (e) {
+            if (e.keyCode == 37) {
+                if (tutorial_page_num > 1) {
+                    $('#previous_tutorial').click();
+                }
+            }
+            if (e.keyCode == 39) {
+                if (tutorial_page_num < total_num_tutorial_pages) {
+                    $('#next_tutorial').click();
+                }
+            }
+        });
+
+        function update_button_text() {
+            if (tutorial_page_num == 1) {
+                $('#previous_tutorial').attr('disabled', true)
+            }
+            else {
+                $('#previous_tutorial').attr('disabled', false)
+            }
+
+
+            if (tutorial_page_num == total_num_tutorial_pages) {
+                $('#next_tutorial').attr('value', 'Finish Tutorial')
+            }
+            else {
+                $('#next_tutorial').attr('value', 'Next page')
+            }
+        }
+
+        function update_tutorial_image(tutorial_page_num) {
+            tutorial_img_src = "{{url_for('static', filename='documents/tutorial/tutorial-1.png')}}";
+            var tutorial_img = $('#tutorial_img');
+            tutorial_img_src = tutorial_img_src.replace("1", tutorial_page_num.toString());
+            tutorial_img[0].src = tutorial_img_src;
+            $('#tutorial_img').load(document.URL +  ' #tutorial_img');
+        }
+    </script>
+
+</html>

@@ -1,0 +1,7 @@
+SELECT 		T.AlbumId, MAX(T.Milliseconds)​
+FROM 		Track T, Playlist P, PlaylistTrack PT, Genre G​
+WHERE 		T.TrackId = PT.TrackId​
+AND			P.PlaylistId = PT.PlaylistId​
+AND 		T.GenreId = G.GenreId​
+AND 		G.Name = 'Classical'	​
+GROUP BY 	T.AlbumId;​

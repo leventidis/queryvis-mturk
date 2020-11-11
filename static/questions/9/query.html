@@ -1,0 +1,14 @@
+<pre style="margin: 0; line-height: 125%; font-size: 16px;">
+<span style="color: blue">SELECT</span> 		G.Name, MAX(T.Milliseconds)​
+<span style="color: blue">FROM</span> 		Playlist P, PlaylistTrack PT, Track T, Genre G,
+                InvoiceLine IL, Invoice I, Customer C​
+<span style="color: blue">WHERE</span> 		T.GenreId = G.GenreId​
+<span style="color: blue">AND</span> 		T.TrackId = IL.TrackId​
+<span style="color: blue">AND</span> 		IL.InvoiceId = I.InvoiceId​
+<span style="color: blue">AND</span> 		I.CustomerId = C.CustomerId​
+<span style="color: blue">AND</span> 		PT.TrackId = T.TrackId​
+<span style="color: blue">AND</span> 		P.PlaylistId = PT.PlaylistId​
+<span style="color: blue">AND</span> 		P.Name = 'workout'
+<span style="color: blue">AND</span> 		C.Country = 'France'​
+<span style="color: blue">GROUP BY</span> 	G.Name;​
+</pre>

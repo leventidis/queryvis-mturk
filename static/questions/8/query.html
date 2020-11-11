@@ -1,0 +1,9 @@
+<pre style="margin: 0; line-height: 125%; font-size: 16px;">
+<span style="color: blue">SELECT</span> 		T.AlbumId, MAX(T.Milliseconds)​
+<span style="color: blue">FROM</span>  		Track T, Playlist P, PlaylistTrack PT, Genre G​
+<span style="color: blue">WHERE</span> 		T.TrackId = PT.TrackId​
+<span style="color: blue">AND</span>		P.PlaylistId = PT.PlaylistId​
+<span style="color: blue">AND</span> 		T.GenreId = G.GenreId​
+<span style="color: blue">AND</span> 		G.Name = 'Classical'	​
+<span style="color: blue">GROUP BY</span> 	T.AlbumId;​
+</pre>

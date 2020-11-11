@@ -1,0 +1,10 @@
+<pre style="margin: 0; line-height: 125%; font-size: 16px;">
+<span style="color: blue">SELECT</span>  A.ArtistId, A.Name​
+<span style="color: blue">FROM</span> 	Artist A​
+<span style="color: blue">WHERE	NOT EXISTS​</span>
+		(<span style="color: blue">SELECT</span>    * ​
+		<span style="color: blue">FROM</span>       Album AL, Track T​
+		<span style="color: blue">WHERE</span>	   A.ArtistId = AL.ArtistId​
+		<span style="color: blue">AND</span>	   AL.AlbumId = T.AlbumId​
+		<span style="color: blue">AND</span>	   T.Composer = A.Name);​
+</pre>

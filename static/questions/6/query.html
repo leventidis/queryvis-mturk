@@ -1,0 +1,18 @@
+<pre style="margin: 0; line-height: 125%; font-size: 16px;">
+<span style="color: blue">SELECT</span> 	P.PlaylistId, P.Name​
+<span style="color: blue">FROM</span>	Playlist P, PlaylistTrack PT1, ​
+        PlaylistTrack PT2, PlaylistTrack PT3,​
+        Track T1, Track T2, Track T3​
+<span style="color: blue">WHERE</span>	P.PlaylistId = PT1.PlaylistId​
+<span style="color: blue">AND</span>	P.PlaylistId = PT2.PlaylistId​
+<span style="color: blue">AND</span> 	P.PlaylistId = PT3.PlaylistId​
+<span style="color: blue">AND</span> 	PT1.TrackId <> PT2.TrackId​
+<span style="color: blue">AND</span> 	PT2.TrackId <> PT3.TrackId​
+<span style="color: blue">AND</span> 	PT1.TrackId <> PT3.TrackId​
+<span style="color: blue">AND</span> 	PT1.TrackId = T1.TrackId​
+<span style="color: blue">AND</span> 	PT2.TrackId = T2.TrackID​
+<span style="color: blue">AND</span> 	PT3.TrackId = T3.TrackID​
+<span style="color: blue">AND</span> 	T1.AlbumId = T2.AlbumId​
+<span style="color: blue">AND</span> 	T2.AlbumId = T3.AlbumId​
+<span style="color: blue">AND</span> 	T2.Composer = T3.Composer;​
+</pre>

@@ -1,0 +1,1 @@
+Find artists who have an album with a track whose composer has the same name as the artists themselves.

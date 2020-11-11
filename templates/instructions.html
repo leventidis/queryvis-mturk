@@ -1,0 +1,198 @@
+<!doctype html>
+
+<html lang="en">
+	<head>
+        <title>Visualization of SQL Queries</title>
+        <meta name="description" content="QueryViz User Study">
+        <meta name="author" content="Aristotelis Leventidis">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
+        <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+        <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/themes/smoothness/jquery-ui.css">
+        <link rel="stylesheet" href="https://s3.amazonaws.com/mturk-public/bs30/css/bootstrap.min.css">
+    </head>
+    
+    <script>
+        window.onload = function() {
+            var preview = "{{preview}}";
+            console.log(preview);
+            if (preview == 'False') {
+                localStorage.setItem('worker_id', '{{worker_id}}');
+                localStorage.setItem('assignment_id', '{{assignment_id}}');
+                localStorage.setItem('hit_id', '{{hit_id}}');
+                console.log("Set worker_id:", localStorage.getItem('worker_id'),
+                "assignment_id:", localStorage.getItem('assignment_id'), "hit_id:",
+                localStorage.getItem('hit_id'));
+            }
+        };
+    </script>
+
+	<body>
+		<div id="instructions_div">
+			<form id="instructions_form">
+
+				{% if preview == True %}
+				<p style="text-align:center"><strong><font color="red" size="10">THIS IS A PREVIEW!</font></strong></p>
+				<p><strong>The preview below provides you with the full instructions of the HIT</strong></p><br>
+                {% endif %}
+
+                <!------------------------------- USABILITY Testing (Pilot) ------------------------------->
+                <p><strong><font size="4">Northeastern University, Khoury College of Computer and Information Science</font></strong></p>
+                <p><strong>Names of Investigators:</strong><span style="font-weight: 400;"> Cody Dunne, Wolfgang Gatterbauer, Mirek Riedewald, Aristotelis Sigiouan Leventidis</span></p>
+                <p><strong>Title of Project:</strong><span style="font-weight: 400;"> Visualizing Database Queries</span></p>
+                <p><strong>Request to participate in usability testing:</strong>
+                    <span style="font-weight: 400;"> We would like to invite you to participate in a web-based online usability test.
+                </p>
+                <p><strong>Qualifications:</strong>We are asking you to participate in this test because you are <u>experienced
+                    with using SQL</u>, are at least <u>18 years old</u> and you are located in the <u>USA</u>.
+                </p>
+                <p><strong>Key Information</strong>
+                    <ul>
+                        <li>Your consent is being sought for participation in a usability test and your participation is voluntary.</li>
+                        <li>The purpose of this test is to compare the effectiveness of a visual metaphor in helping users understand SQL vs.
+                            alternatives (e.g., formatted SQL text).</li>
+                        <li><strong>Time required:</strong>This test is expected to take about <u>30 minutes</u>
+                            to complete (including qualification test) with a maximum limit of
+                            <u>65 minutes</u> (15 minutes for the qualification and 50 minutes for the main test) and no limit for the tutorial and
+                            questionnaire except the HIT expiration time of <u>120 minutes</u>. We have also included an embedded countdown timer
+                            to display the amount of time remaining. The timer can be found at the top left of the test window once the test starts.
+                            <strong><u>We highly recommend that you take the test in one sitting with your browser
+                            window maximized for better readability.</u></strong>
+                        </li>
+                        <li>
+                            The procedures that you will be asked to complete include a pre-test qualification test, reading through a tutorial,
+                            answering questions about the plain-English results of SQL queries and visual representations, and answering a simple
+                            questionnaire about SQL experience and demographics. You need to answer at least <u>4/6 questions correctly</u> in our SQL
+                            comprehension test in order to qualify for the hit.
+                        </li>
+                        <li>
+                            There are no foreseeable risks or discomforts to you for taking part in this test.
+                        </li>
+                        <li>
+                            There are not direct benefits to you participating in the test.
+                        </li>
+                    </ul>
+                </p>
+                <p><strong>Participation: </strong>
+                    The decision to participate in this usability test is voluntary. You do not have to participate and you can refuse
+                    to answer any question. Even if you begin the web-based online test, you can stop at any time.
+                    There are no foreseeable risks or discomforts to you for taking part in this test.
+                </p>
+                <p><strong>HIT acceptance criteria:</strong>
+                    You need to answer at least <strong><u>5 out of the 12 questions correctly</u></strong>
+                    Your evaluation is done automatically, but your HIT acceptance and bonus assignment may take up to
+                    <u>48 hours</u> to process.
+                </p>
+                <p><strong>Payment: </strong>
+                    You will be paid a base pay of <u>$5.20</u> for correctly answering 5/12 questions. You will receive a bonus <u>$1.04 for each correct answer</u>
+                    after the first 5 for a total pay of <u>$12.48</u>. In addition to correctness, you will also receive a bonus
+                    if you complete the test within a certain time limit. The bonus is applied as a percentage to your total pay.
+                    The detailed time brackets with their respective bonus percentages are shown by the table below:
+                    
+
+                    <style type="text/css">
+                        .tg  {border-collapse:collapse;border-spacing:0;}
+                        .tg td{font-family:Arial, sans-serif;font-size:14px;padding:10px 5px;border-style:solid;border-width:1px;overflow:hidden;word-break:normal;border-color:black;}
+                        .tg th{font-family:Arial, sans-serif;font-size:14px;font-weight:normal;padding:10px 5px;border-style:solid;border-width:1px;overflow:hidden;word-break:normal;border-color:black;}
+                        .tg .tg-baqh{text-align:center;vertical-align:top}
+                        .tg .tg-c3ow{border-color:inherit;text-align:center;vertical-align:top}
+                        .tg .tg-7btt{font-weight:bold;border-color:inherit;text-align:center;vertical-align:top}
+                    </style>
+                    <table class="tg" align="center">
+                        <tr>
+                        <th class="tg-7btt">Total Time (minutes)</th>
+                        <th class="tg-7btt">% Bonus applied to total pay</th>
+                        <th class="tg-7btt">Total payment in USD assuming 100% question correctness</th>
+                        </tr>
+                        <tr>
+                        <td class="tg-c3ow">&lt;14</td>
+                        <td class="tg-c3ow">32</td>
+                        <td class="tg-c3ow">16.47</td>
+                        </tr>
+                        <tr>
+                        <td class="tg-c3ow">14-15</td>
+                        <td class="tg-c3ow">28</td>
+                        <td class="tg-c3ow">15.97</td>
+                        </tr>
+                        <tr>
+                        <td class="tg-c3ow">15-16</td>
+                        <td class="tg-c3ow">24</td>
+                        <td class="tg-c3ow">15.48</td>
+                        </tr>
+                        <tr>
+                        <td class="tg-c3ow">16-17</td>
+                        <td class="tg-c3ow">20</td>
+                        <td class="tg-c3ow">14.98</td>
+                        </tr>
+                        <tr>
+                        <td class="tg-c3ow">17-18</td>
+                        <td class="tg-c3ow">16</td>
+                        <td class="tg-c3ow">14.48</td>
+                        </tr>
+                        <tr>
+                        <td class="tg-baqh">18-19</td>
+                        <td class="tg-baqh">12</td>
+                        <td class="tg-baqh">13.98</td>
+                        </tr>
+                    </table>
+                    <br>
+
+
+                    For example, assume you answered 8/12 correctly in 16 minutes and 20 seconds.
+                    This means that you will be payed $5.20 + 3*$1.04 = $8.32 based on your correctness and there will be a bonus of 20% added to your total pay.
+                    So your total pay would be 1.20 * 8.32 = $9.98.
+                    <br> <br>
+                    Note that the above times only apply for answering questions, not including tutorial, questionnaire, or any other
+                    miscellaneous portions (so you can take your time on those other portions without affecting your payout).
+                    <br> <br>
+                    Once you submit your answer for a question you will get immediate feedback on whether the answer is right or wrong,
+                    and the correct answer will be indicated. During the review process the countdown timer is paused.
+                    So you can take your time to review the correct answer after submitting your answer to a question.
+                </p>
+                <p><strong>Anonymity:</strong>
+                    Your part in this test is anonymous to the requesters. However, because of the nature of web based studies,
+                    it is possible that respondents could be identified by the IP address or other electronic record associated with the response.
+                    Neither the requester nor anyone involved with this survey will be capturing those data. Any reports or publications
+                    based on this test will use only group data and will not identify you or any individual as being affiliated with this project.
+                    The only individually-identifying data we receive from Mechanical Turk are your unique identifier and your country. Your data
+                    are also stored on Mechanical Turk's servers, and the data there are subject to the Amazon Mechanical Turk Privacy Notice
+                    and Participation Agreement.
+                </p>
+                <p><strong>Your de-Identified Information could be used for future tests without additional informed consent.</strong></p>
+                <p><strong>If you have questions about:</strong></p>
+
+                <p><strong>...this test,</strong> contact Aristotelis Sigiouan Leventidis (<a href="mailto:leventidis.a@husky.neu.edu">leventidis.a@husky.neu.edu</a>),
+                    the person mainly responsible for the usability test. You can also contact Cody Dunne
+                    (<a href="mailto:c.dunne@northeastern.edu")>c.dunne@northeastern.edu</a>), the Principal Investigator.</span>
+
+                <p>
+                    <strong>By clicking on the "accept" button below you are indicating that you consent to participate in this usability test.</strong>
+                    Please print out a copy of this consent form for your records.</p>
+                <p>
+                    Thank you for your time,
+                    <br>
+                    Cody Dunne, Wolfgang Gatterbauer, Mirek Riedewald, Aristotelis Sigiouan Leventidis
+                </p>
+
+
+
+
+                {% if preview == False %}
+                <div style="text-align: center;">
+                    <button type="button" id="instructions_submitButton">Accept and Proceed to Tutorial</button></p>
+                </div>
+				{% endif %}
+			</form>
+        </div>
+    </body>
+    
+    <script>
+		// Redirect the user to the test route
+        $('#instructions_submitButton').click(function() {
+			console.log("User acknowledged that s/he read the instructions and clicked to proceed");
+            window.location.href = "/tutorial";
+        });
+
+    </script>
+
+</html>

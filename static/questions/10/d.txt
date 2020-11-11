@@ -1,0 +1,1 @@
+Find artists so that all their albums have a track that is not composed by someone with the same name as the artist.

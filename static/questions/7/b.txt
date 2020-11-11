@@ -1,0 +1,1 @@
+For each customer who bought a track from an artist named 'Carlos', find the number of tracks they bought that are part of invoices that include a track by that same artist named 'Carlos'.

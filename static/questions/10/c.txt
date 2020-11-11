@@ -1,0 +1,1 @@
+Find artists who do not have any album where all its tracks are composed by someone with the same name as the artist.

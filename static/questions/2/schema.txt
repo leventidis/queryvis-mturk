@@ -1,0 +1,3 @@
+instructors(InstructorID, FirstName, MiddleName, LastName, Name, Affiliations, Reputation)
+workload(id, name)
+workload_courses(id, workload_id, term_id, course_id, instructor_id, num_responses)

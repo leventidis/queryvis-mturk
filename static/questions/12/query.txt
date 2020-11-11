@@ -1,0 +1,15 @@
+SELECT 	A.ArtistId, A.Name​
+FROM	Artist A, Album AL​
+WHERE	A.ArtistId = AL.ArtistId​
+AND		NOT EXISTS​
+		(SELECT *​
+		FROM 	Track T, Genre G​
+		WHERE 	AL.AlbumId = T.AlbumId​
+		AND 	T.GenreId = G.GenreId​
+		AND 	G.Name = 'Jazz'​
+		AND 	NOT EXISTS​
+				(SELECT *​
+				FROM	Playlist P, PlaylistTrack PT​
+				WHERE	P.PlaylistId = PT.PlaylistId​
+				AND		PT.TrackId = T.TrackId)​
+		);​

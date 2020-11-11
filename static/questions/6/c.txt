@@ -1,0 +1,1 @@
+Find playlists that have at least 3 different tracks so that at least 2 of them are in the same album and made by the same composer.

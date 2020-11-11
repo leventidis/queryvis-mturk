@@ -1,0 +1,1 @@
+Find employees who report to an employee in a different country and the latter employee only supports customers that have bought a 'Rock' track.

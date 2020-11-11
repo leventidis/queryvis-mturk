@@ -1,0 +1,11 @@
+SELECT E1.EmployeeId​
+FROM    Employee E1, Employee E2, Customer C,
+        Invoice I, InvoiceLine IL, Track T, Genre G​
+WHERE   E1.ReportsTo = E2.EmployeeId​
+AND     E1.Country <> E2.Country​
+AND     E2.EmployeeId = C.SupportRepId​
+AND     I.CustomerId = C.CustomerId​
+AND     I.InvoiceId = IL.InvoiceId​
+AND     T.TrackId = IL.TrackId​
+AND     T.GenreId = G.GenreId​
+AND     G.Name = 'Rock’;​

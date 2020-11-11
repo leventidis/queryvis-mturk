@@ -1,0 +1,1 @@
+For each genre that has a track sold to at least one customer from France, find the maximum duration of any track that is listed in a playlist named 'workout'.

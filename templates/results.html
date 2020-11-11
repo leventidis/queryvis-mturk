@@ -1,0 +1,64 @@
+<!doctype html>
+
+<html lang="en">
+	<head>
+        <title>Visualization of SQL Queries</title>
+        <meta name="description" content="QueryViz User Study">
+        <meta name="author" content="Aristotelis Leventidis">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
+        <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+        <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/themes/smoothness/jquery-ui.css">
+        <link rel="stylesheet" href="https://s3.amazonaws.com/mturk-public/bs30/css/bootstrap.min.css">
+	</head>
+	
+	<script>
+		window.onload = function() {
+            assignment_id = localStorage.getItem('assignment_id');
+            worker_id = localStorage.getItem('worker_id');
+            hit_id = localStorage.getItem('hit_id');
+			$('#assignmentId').val(assignment_id);
+			$('#workerId').val(worker_id);
+			$('#hitId').val(hit_id);
+			console.log("workerId:", worker_id, "assignmentId", assignment_id, "hitId", hit_id);
+		};
+	</script>
+
+    <body>
+        <div id="results_div">
+			<form id="results_form" action="{{AMAZON_HOST}}" method="POST">
+				<input type="hidden" id="assignmentId" name="assignmentId"/>
+				<input type="hidden" id="workerId" name="workerId"/>
+				<input type="hidden" id="hitId" name="hitId"/>
+            </form>
+            <p>You got {{num_correct}} out of the 12 questions correct</p>
+            <p>Your total completion time was {{(total_time / 60)|round(2, 'common')}} minutes ({{total_time}} seconds)</p>
+            {% if accept == False %}
+            <p>Your HIT will not be accepted because {{failure_reason}}</p>
+            {% endif %}
+
+            {% if accept == True %}
+            <p>
+                In addition to the base pay of $5.20, you will receive a bonus payment of ${{total_bonus}}: <br>
+                ${{bonus_correctness}} for answering {{num_correct}} questions correctly and ${{bonus_time}} 
+                for finishing the test in {{(total_time / 60)|round(2, 'common')}} minutes ({{total_time}} seconds)
+            </p>
+            <p>Your total pay will be: ${{total_pay}}</p>
+            {% endif %}
+            <p id="btnContainer">
+                <input type="submit" value="CLICK to finish this HIT" id="results_submitButton"/>
+            </p>
+		</div>
+
+    </body>
+
+    <script>
+        $('#results_submitButton').click(function() {
+            console.log("Clicked button to finish this HIT");
+            $("#results_form").submit();
+        });
+
+    </script>
+
+    
+</html>

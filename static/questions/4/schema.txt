@@ -1,0 +1,3 @@
+instructors(InstructorID, FirstName, MiddleName, LastName, Name, Affiliations, Reputation)
+instructorhistory(instructorhistoryid, InstructorID, CourseSectionID)
+section_schedules(id, section_id, location, start_hour, start_min, end_hour, end_min, day)

@@ -1,0 +1,1 @@
+Find artists who have an album with a track that is composed by themselves.

@@ -1,0 +1,1 @@
+Find customers from 'Michigan' that have two invoices billed at two different states.
